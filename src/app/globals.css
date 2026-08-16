@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* design.md tokens — charcoal instead of pure #000000 for AAA */
+  --ink: #1a1a1a;
+  --paper: #f5f1e8;
+  --card: #ffffff;
+  --mute: #4a4a4a;
+  --line: #808080;
+  --taupe: #b38b6d;
+  --taupe-dark: #9a7358;
+  --focus: #b38b6d;
+  --error: #8f2d2d;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --z-base: 0;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 500;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --space-sm: 2rem;
+  --space-md: 4rem;
+  --space-lg: 8rem;
+
+  --section-gap: clamp(4rem, 8vw, 8rem);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --ink: #f5f1e8;
+    --paper: #161616;
+    --card: #1f1f1f;
+    --mute: #b5b5b5;
+    --line: #6e6e6e;
+    --taupe: #c9a183;
+    --taupe-dark: #b38b6d;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
   }
 }
 
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-taupe: var(--taupe);
+  --color-taupe-dark: var(--taupe-dark);
+  --color-error: var(--error);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+html {
+  background: var(--paper);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--taupe);
+  color: #1a1a1a;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+button,
+input,
+select,
+textarea {
+  border-radius: 0;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--ink) 92%, #000000);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--card);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.enter {
+  animation: enter 420ms ease-out both;
+}
+
+.enter-1 {
+  animation-delay: 80ms;
+}
+.enter-2 {
+  animation-delay: 160ms;
+}
+.enter-3 {
+  animation-delay: 240ms;
+}
+.enter-4 {
+  animation-delay: 320ms;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--line) 18%, var(--card)) 0%,
+    color-mix(in srgb, var(--line) 8%, var(--card)) 50%,
+    color-mix(in srgb, var(--line) 18%, var(--card)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .skeleton {
+    animation: none;
+  }
+
+  .enter {
+    opacity: 1;
+    transform: none;
+  }
 }
