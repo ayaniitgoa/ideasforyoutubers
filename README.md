@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ideas For Youtubers
 
-## Getting Started
+Public site: [www.ideasforyoutubers.com](https://www.ideasforyoutubers.com)
 
-First, run the development server:
+A public board for YouTube video ideas. Browse a roster of channels, open one, and add a title plus notes. Tagline: **What should they make next? You decide.**
+
+This is not a generic prompt list. Ideas sit on a real channel page.
+
+## What it does
+
+- Search, filter (Gaming / Entertainment), and sort the roster
+- Open a channel, add an idea, confirm it
+- About, privacy, terms, and contact pages
+- `robots.txt` and a generated `/sitemap.xml`
+
+There are no accounts, votes, or private drafts. Submitted ideas are public.
+
+## Stack
+
+- Next.js 16 (App Router) and React 19
+- Tailwind CSS 4
+- Supabase (channel roster + ideas)
+- Hosted at `https://www.ideasforyoutubers.com`
+
+## Pages
+
+| Path | What it is |
+| --- | --- |
+| `/` | Channel roster and FAQ |
+| `/{slug}` | Channel page and idea form |
+| `/about` | About us |
+| `/privacy-policy` | Privacy policy |
+| `/terms-and-conditions` | Terms and conditions |
+| `/contact` | Contact us |
+| `/sitemap.xml` | XML sitemap |
+| `/robots.txt` | Crawler rules + sitemap link |
+
+## Local setup
+
+```bash
+npm install
+```
+
+Create `.env.local` (this file is gitignored):
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://www.ideasforyoutubers.com
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@db.YOUR_PROJECT.supabase.co:5432/postgres
+```
+
+`DATABASE_URL` is only needed to seed the database. URL-encode special characters in the password (for example `@` as `%40`).
+
+Create tables and seed the 200-channel roster from `src/data/youtubers.json`:
+
+```bash
+npm run db:setup
+```
+
+Start the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Set the same `NEXT_PUBLIC_*` variables on Vercel (or your host). Attach `www.ideasforyoutubers.com` as the production domain. Apex `ideasforyoutubers.com` redirects to `www`.
