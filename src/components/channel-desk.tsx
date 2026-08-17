@@ -119,17 +119,17 @@ export function ChannelDesk({
                 <span>{channel.viewsLabel} VIEWS</span>
                 <span>{channel.videosLabel} VIDEOS</span>
               </p>
-              <a
-                href={channel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-11 items-center gap-2 text-[0.875rem] font-medium uppercase tracking-[0.08em] text-gold no-underline transition-colors duration-200 ease-out hover:text-red"
-              >
-                <ExternalLink size={16} strokeWidth={2.25} />
-                Visit on YouTube
-              </a>
             </div>
           </div>
+          <a
+            href={channel.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 px-4 text-[0.875rem] font-medium uppercase tracking-[0.08em] no-underline sm:mt-4 sm:w-auto sm:justify-start sm:border-0 sm:bg-transparent sm:px-0 sm:shadow-none"
+          >
+            <ExternalLink size={16} strokeWidth={2.25} />
+            Visit on YouTube
+          </a>
           <p className="mt-6 max-w-[72ch] text-[0.95rem] text-mute sm:text-base">
             What should they make next? You decide.
           </p>
