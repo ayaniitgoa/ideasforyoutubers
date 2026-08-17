@@ -1,9 +1,22 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Anton, JetBrains_Mono, Oswald } from "next/font/google";
 import "./globals.css";
+import {
+  getSiteUrl,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+} from "@/lib/seo";
 
-const inter = Inter({
-  variable: "--font-inter",
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -14,19 +27,74 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: "Youtuber Ideas — Topic research for YouTube teams",
-  description:
-    "A research desk for YouTube operators. Score topics by demand, map existing titles, and lock packaging before a camera rolls.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${SITE_NAME} | YouTube Video Ideas`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "entertainment",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | YouTube Video Ideas`,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — YouTube video ideas and creative video ideas`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | YouTube Video Ideas`,
+    description: SITE_DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml", sizes: "any" }],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffd700",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${oswald.variable} ${anton.variable} ${jetbrainsMono.variable} h-full overflow-x-clip`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink font-sans">
+      <body className="flex min-h-[100dvh] flex-col overflow-x-clip bg-[#1a1a1a] font-sans text-[#fffef8]">
         {children}
       </body>
     </html>

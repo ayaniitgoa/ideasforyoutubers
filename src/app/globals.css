@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* design.md tokens — charcoal instead of pure #000000 for AAA */
+  --red: #e31b1b;
+  --gold: #ffd700;
+  --green: #006400;
   --ink: #1a1a1a;
-  --paper: #f5f1e8;
-  --card: #ffffff;
-  --mute: #4a4a4a;
-  --line: #808080;
-  --taupe: #b38b6d;
-  --taupe-dark: #9a7358;
-  --focus: #b38b6d;
-  --error: #8f2d2d;
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --orange: #ff6600;
+  --blue: #0066cc;
+  --pink: #ff1493;
+  --white: #fffef8;
+  --paper: #1a1a1a;
+  --card: #fffef8;
+  --mute: #d4d4d4;
+  --line: #0d0d0d;
+  --focus: #ff6600;
+  --error: #e31b1b;
 
   --z-base: 0;
   --z-nav: 100;
@@ -28,85 +31,251 @@
   --space-lg: 8rem;
 
   --section-gap: clamp(4rem, 8vw, 8rem);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f5f1e8;
-    --paper: #161616;
-    --card: #1f1f1f;
-    --mute: #b5b5b5;
-    --line: #6e6e6e;
-    --taupe: #c9a183;
-    --taupe-dark: #b38b6d;
-    --shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
-  }
+  --shadow-hard: 6px 6px 0 #0d0d0d;
+  --background: #1a1a1a;
+  --foreground: #fffef8;
+  color-scheme: dark;
 }
 
 @theme inline {
+  --color-red: var(--red);
+  --color-gold: var(--gold);
+  --color-green: var(--green);
   --color-ink: var(--ink);
+  --color-orange: var(--orange);
+  --color-blue: var(--blue);
+  --color-pink: var(--pink);
+  --color-white: var(--white);
   --color-paper: var(--paper);
   --color-card: var(--card);
   --color-mute: var(--mute);
   --color-line: var(--line);
-  --color-taupe: var(--taupe);
-  --color-taupe-dark: var(--taupe-dark);
   --color-error: var(--error);
-  --font-sans: var(--font-inter);
+  --color-background: #1a1a1a;
+  --color-foreground: #fffef8;
+  --font-sans: var(--font-oswald);
+  --font-display: var(--font-anton);
   --font-mono: var(--font-jetbrains);
 }
 
+html,
+body {
+  background: #1a1a1a;
+  color: #fffef8;
+  color-scheme: dark;
+}
+
+@media (pointer: fine) {
+  a,
+  button,
+  label,
+  select,
+  summary,
+  [role="button"],
+  .btn-primary,
+  .btn-ghost {
+    cursor: pointer;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+  }
+
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
 html {
-  background: var(--paper);
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  min-height: 100%;
+  font-family: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      -12deg,
+      transparent 0 18px,
+      rgb(255 215 0 / 0.03) 18px 19px
+    ),
+    radial-gradient(ellipse at 20% 10%, rgb(227 27 27 / 0.16), transparent 42%),
+    radial-gradient(ellipse at 90% 80%, rgb(0 100 0 / 0.14), transparent 45%);
 }
 
 ::selection {
-  background: var(--taupe);
-  color: #1a1a1a;
+  background: var(--gold);
+  color: var(--ink);
 }
 
 a {
   text-underline-offset: 0.2em;
 }
 
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.legal-copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 72ch;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.legal-copy h2 {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.legal-copy h2:first-child {
+  margin-top: 0;
+}
+
+.legal-copy ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.legal-copy a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 button,
 input,
 select,
 textarea {
-  border-radius: 0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  min-height: 3rem;
 }
 
 .btn-primary {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--gold);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 0.5rem;
+  box-shadow: 4px 4px 0 var(--ink);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  background: color-mix(in srgb, var(--ink) 92%, #000000);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  background: color-mix(in srgb, var(--gold) 92%, #000000);
+  box-shadow: 6px 6px 0 var(--ink);
 }
 
 .btn-primary:active {
   transform: translateY(1px);
+  box-shadow: 3px 3px 0 var(--ink);
 }
 
 .btn-ghost {
-  border: 1.5px solid var(--line);
-  color: var(--ink);
   background: transparent;
+  color: var(--gold);
+  border: 3px solid var(--gold);
+  border-radius: 0.5rem;
 }
 
 .btn-ghost:hover {
+  background: rgb(255 215 0 / 0.12);
+}
+
+.poster {
+  position: relative;
   background: var(--card);
+  color: var(--ink);
+  border: 4px solid var(--ink);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-hard);
+  max-width: 100%;
+}
+
+.poster-gold {
+  background: var(--gold);
+}
+
+.poster-red {
+  background: var(--red);
+  color: var(--white);
+}
+
+.poster-green {
+  background: var(--green);
+  color: var(--white);
+}
+
+.poster-orange {
+  background: var(--orange);
+  color: var(--ink);
+}
+
+.poster-white {
+  background: var(--white);
+}
+
+.torn {
+  clip-path: polygon(
+    0.6% 1.4%,
+    8% 0%,
+    22% 1.2%,
+    41% 0.3%,
+    63% 1.5%,
+    81% 0.2%,
+    99.4% 1.1%,
+    100% 18%,
+    98.6% 41%,
+    100% 67%,
+    98.8% 91%,
+    99.2% 100%,
+    78% 98.6%,
+    54% 100%,
+    31% 98.4%,
+    12% 100%,
+    0% 98.2%,
+    1.2% 72%,
+    0% 48%,
+    1.4% 21%
+  );
 }
 
 @keyframes enter {
@@ -149,12 +318,26 @@ textarea {
 .skeleton {
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--line) 18%, var(--card)) 0%,
-    color-mix(in srgb, var(--line) 8%, var(--card)) 50%,
-    color-mix(in srgb, var(--line) 18%, var(--card)) 100%
+    color-mix(in srgb, var(--ink) 18%, var(--gold)) 0%,
+    color-mix(in srgb, var(--ink) 8%, var(--gold)) 50%,
+    color-mix(in srgb, var(--ink) 18%, var(--gold)) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-out infinite;
+}
+
+@media (max-width: 639px) {
+  :root {
+    --shadow-hard: 4px 4px 0 #0d0d0d;
+  }
+
+  .torn {
+    clip-path: none;
+  }
+
+  .poster {
+    border-width: 3px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
