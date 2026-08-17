@@ -20,6 +20,7 @@ There are no accounts, votes, or private drafts. Submitted ideas are public.
 - Next.js 16 (App Router) and React 19
 - Tailwind CSS 4
 - Supabase (channel roster + ideas)
+- Cloudflare Workers (OpenNext)
 - Hosted at `https://www.ideasforyoutubers.com`
 
 ## Pages
@@ -66,6 +67,24 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Deploy
+## Deploy (Cloudflare Workers)
 
-Set the same `NEXT_PUBLIC_*` variables on Vercel (or your host). Attach `www.ideasforyoutubers.com` as the production domain. Apex `ideasforyoutubers.com` redirects to `www`.
+This app uses [@opennextjs/cloudflare](https://opennext.js.org/cloudflare) so Next.js runs on Cloudflare Workers.
+
+1. Log in: `npx wrangler login`
+2. Put the same `NEXT_PUBLIC_*` values from `.env.local` in Cloudflare Worker variables (runtime) and build variables.
+3. Deploy:
+
+```bash
+npm run deploy
+```
+
+That builds with OpenNext and uploads the Worker named `ideasforyoutubers`. Live preview: [ideasforyoutubers.ayanadhya.workers.dev](https://ideasforyoutubers.ayanadhya.workers.dev). After `ideasforyoutubers.com` is on this Cloudflare account, add `www.ideasforyoutubers.com` as a custom domain on the Worker.
+
+Local worker preview (workerd, not `next dev`):
+
+```bash
+npm run preview
+```
+
+`DATABASE_URL` is only for `npm run db:setup` and is not needed on the Worker.

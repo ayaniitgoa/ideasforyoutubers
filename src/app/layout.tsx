@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, JetBrains_Mono, Oswald } from "next/font/google";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import "./globals.css";
 import {
   getSiteUrl,
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-[100dvh] flex-col overflow-x-clip bg-[#1a1a1a] font-sans text-[#fffef8]">
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );

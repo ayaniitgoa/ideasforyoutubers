@@ -34,7 +34,7 @@ export const SITE_PAGES = [
 export function getContactEmail() {
   return (
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() ||
-    "ayanadhya99@gmail.com"
+    "ayanadhya1999@gmail.com"
   );
 }
 

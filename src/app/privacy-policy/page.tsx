@@ -64,8 +64,10 @@ export default function PrivacyPolicyPage() {
         The site may set cookies or similar data that our host and database
         provider need to serve pages, keep a session, or prevent abuse. Your
         browser may also store small amounts of data for the idea form on a
-        channel page while you use it. We do not run a separate advertising
-        cookie program on this site.
+        channel page while you use it. We also load Google Analytics (measurement
+        ID G-0NF2QJS25G), which sets cookies such as `_ga` so we can see page
+        views and how people move around the site. Google’s own terms apply to
+        that traffic data.
       </p>
       <h2>How we use information</h2>
       <p>We use the information above to:</p>
@@ -73,7 +75,8 @@ export default function PrivacyPolicyPage() {
         <li>show the roster and public idea lists;</li>
         <li>save ideas that visitors confirm;</li>
         <li>keep the site up, debug errors, and stop spam or attacks;</li>
-        <li>answer email you send us.</li>
+        <li>answer email you send us;</li>
+        <li>measure traffic with Google Analytics.</li>
       </ul>
       <p>
         We do not sell your personal information. We do not use idea text to
@@ -81,11 +84,13 @@ export default function PrivacyPolicyPage() {
       </p>
       <h2>Who processes data for us</h2>
       <p>
-        Pages are hosted by our website provider (currently Vercel). Channel
+        Pages are hosted by our website provider (currently Cloudflare). Channel
         records and ideas are stored with our database provider (currently
         Supabase). Channel artwork and “Visit on YouTube” links go to YouTube
-        / Google when you follow them. Those companies process data on their
-        own terms when your browser talks to them.
+        / Google when you follow them. Google Analytics loads from Google
+        Tag Manager (`googletagmanager.com` / `google-analytics.com`). Those
+        companies process data on their own terms when your browser talks to
+        them.
       </p>
       <h2>How long we keep it</h2>
       <p>
